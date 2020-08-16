@@ -1,0 +1,12 @@
+{
+  "name": "srv-SocketChat",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "description": "Socket.IO Client for iOS Tutorial, Server-side implementation",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.4.4"
+  }
+}
