@@ -29,7 +29,7 @@ class SocketIOManager: NSObject {
     }
     
     
-    func connectToServerWithNickname(nickname: String, completionHandler: (_ userList: [[String: AnyObject]]?) -> Void) {
+    func connectToServerWithNickname(nickname: String, completionHandler: (userList: [[String: AnyObject]]!) -> Void) {
         socket.emit("connectUser", nickname)
         
         socket.on("userList") { ( dataArray, ack) -> Void in

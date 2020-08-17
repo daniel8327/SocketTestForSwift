@@ -12,11 +12,14 @@ import SocketIO
 class ViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var userList: UITextView!
     
     var nickname: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        SocketIOManager.shared.establishConnection()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -25,11 +28,17 @@ class ViewController: UIViewController {
         if nickname == nil {
             askForNickname { bool in
                 
-                
                 if bool {
                     SocketIOManager.shared.connectToServerWithNickname(nickname: self.nickname, completionhandler: { (userList) -> Void in
+                        self.userList.text = ""
                         
-                        print("현재 접속인원 \(userList)")
+                        //print("현재 접속인원 \(userList)")
+                        
+                        let memberNames = userList.map { user in
+                            return "\(user["nickname"] as? String ?? "Unknown") \(user["isConnected"] as? Bool ?? false ? "OnLine" : "OffLine")"
+                        }.joined(separator: "\n")
+                        
+                        self.userList.text += memberNames
                     })
                     
                     SocketIOManager.shared.getChatMessage { datas in

@@ -8,6 +8,7 @@
 
 import Foundation
 import SocketIO
+import SwiftyJSON
 
 class SocketIOManager: NSObject {
     static let shared = SocketIOManager()
@@ -78,13 +79,30 @@ class SocketIOManager: NSObject {
         socket.emit("chatMessage", nickName, message)
     }
     
-    func connectToServerWithNickname(nickname: String, completionhandler: @escaping(_ userList: [Any]) -> Void) {
+    func connectToServerWithNickname(nickname: String, completionhandler: @escaping(_ userList: [[String: AnyObject]]) -> Void) {
         
         socket.emit("connectUser", nickname)
         
         socket.on("userList") { datas, ack in
             
-            completionhandler(datas)
+            let aaa = datas[0] as! [[String: AnyObject]]
+            print("aaa \(aaa)")
+            
+//            print("aa \(JSON(datas[0]))")
+//            
+//            struct Response: Decodable {
+//                let users: [User]
+//            }
+//
+//            let aa = try! JSONSerialization.data(withJSONObject: datas[0])
+//            
+//            print("aa \(aa)")
+//            print("aa \(JSON(aa))")
+//            
+//            let response = try! JSONDecoder().decode(Response.self, from: aa)
+//            
+//            print("aa \(response.users)")
+            completionhandler(aaa)
         }
         
         listenForOtherMessages()
@@ -96,7 +114,7 @@ class SocketIOManager: NSObject {
         }
         
         socket.on("userExitUpdate") { (dataArray, socketAck) -> Void in
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "userWasDisconnectedNotification"), object: dataArray[0] as! [String: AnyObject])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "userWasDisconnectedNotification"), object: dataArray[0] as! String)
         }
         
         socket.on("userTypingUpdate") { (dataArray, socketAck) -> Void in

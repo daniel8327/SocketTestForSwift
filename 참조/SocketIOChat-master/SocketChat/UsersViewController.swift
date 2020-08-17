@@ -9,10 +9,6 @@
 import UIKit
 
 class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }
-    
 
     @IBOutlet weak var tblUserList: UITableView!
     
@@ -104,32 +100,32 @@ class UsersViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     func askForNickname() {
-        let alertController = UIAlertController(title: "SocketChat", message: "Please enter a nickname:", preferredStyle: UIAlertController.Style.alert)
+        let alertController = UIAlertController(title: "SocketChat", message: "Please enter a nickname:", preferredStyle: UIAlertControllerStyle.Alert)
         
-        alertController.addTextField(configurationHandler: nil)
+        alertController.addTextFieldWithConfigurationHandler(nil)
         
-        let OKAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { (action) -> Void in
+        let OKAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) { (action) -> Void in
             let textfield = alertController.textFields![0]
-            if textfield.text?.count == 0 {
+            if textfield.text?.characters.count == 0 {
                 self.askForNickname()
             }
             else {
                 self.nickname = textfield.text
                 
-                SocketIOManager.sharedInstance.connectToServerWithNickname(nickname: self.nickname, completionHandler: { (userList) -> Void in
-                    DispatchQueue.main.async {
+                SocketIOManager.sharedInstance.connectToServerWithNickname(self.nickname, completionHandler: { (userList) -> Void in
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         if userList != nil {
                             self.users = userList
                             self.tblUserList.reloadData()
                             self.tblUserList.hidden = false
                         }
-                    }
+                    })
                 })
             }
         }
         
         alertController.addAction(OKAction)
-        present(alertController, animated: true, completion: nil)
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     

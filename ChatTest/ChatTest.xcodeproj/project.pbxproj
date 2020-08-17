@@ -15,6 +15,7 @@
 		6427AE7D24E768B600116320 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6427AE7B24E768B600116320 /* LaunchScreen.storyboard */; };
 		6427AE8524E8A2C200116320 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427AE8424E8A2C200116320 /* SocketIOManager.swift */; };
 		6427AE8724E9535700116320 /* ChatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6427AE8624E9535700116320 /* ChatType.swift */; };
+		64E6B94524E9FB8800DC1EFB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6B94424E9FB8800DC1EFB /* User.swift */; };
 		A6C2F925AD97283F1EF5F808 /* Pods_ChatTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C186F94BAE0FD14B8AC8A16F /* Pods_ChatTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		6427AE7E24E768B600116320 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6427AE8424E8A2C200116320 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		6427AE8624E9535700116320 /* ChatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatType.swift; sourceTree = "<group>"; };
+		64E6B94424E9FB8800DC1EFB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C186F94BAE0FD14B8AC8A16F /* Pods_ChatTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB502E7B98EA66F4D0820A1F /* Pods-ChatTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatTest.debug.xcconfig"; path = "Target Support Files/Pods-ChatTest/Pods-ChatTest.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,6 +87,7 @@
 				6427AE7E24E768B600116320 /* Info.plist */,
 				6427AE8424E8A2C200116320 /* SocketIOManager.swift */,
 				6427AE8624E9535700116320 /* ChatType.swift */,
+				64E6B94424E9FB8800DC1EFB /* User.swift */,
 			);
 			path = ChatTest;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			files = (
 				6427AE8524E8A2C200116320 /* SocketIOManager.swift in Sources */,
 				6427AE8724E9535700116320 /* ChatType.swift in Sources */,
+				64E6B94524E9FB8800DC1EFB /* User.swift in Sources */,
 				6427AE7524E768B100116320 /* ViewController.swift in Sources */,
 				6427AE7124E768B100116320 /* AppDelegate.swift in Sources */,
 				6427AE7324E768B100116320 /* SceneDelegate.swift in Sources */,

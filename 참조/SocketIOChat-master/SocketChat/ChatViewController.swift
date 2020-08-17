@@ -80,7 +80,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     
@@ -98,7 +98,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: IBAction Methods
     
     @IBAction func sendMessage(sender: AnyObject) {
-        if tvMessageEditor.text.count > 0 {
+        if tvMessageEditor.text.characters.count > 0 {
             SocketIOManager.sharedInstance.sendMessage(tvMessageEditor.text!, withNickname: nickname)
             tvMessageEditor.text = ""
             tvMessageEditor.resignFirstResponder()
@@ -111,9 +111,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     func configureTableView() {
         tblChat.delegate = self
         tblChat.dataSource = self
-        tblChat.register(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: "idCellChat")
+        tblChat.registerNib(UINib(nibName: "ChatCell", bundle: nil), forCellReuseIdentifier: "idCellChat")
         tblChat.estimatedRowHeight = 90.0
-        tblChat.rowHeight = UITableView.automaticDimension
+        tblChat.rowHeight = UITableViewAutomaticDimension
+        tblChat.tableFooterView = UIView(frame: CGRectZero)
     }
     
     
@@ -125,14 +126,14 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func configureOtherUserActivityLabel() {
-        lblOtherUserActivityStatus.isHidden = true
+        lblOtherUserActivityStatus.hidden = true
         lblOtherUserActivityStatus.text = ""
     }
     
     
     func handleKeyboardDidShowNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
-            if let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if let keyboardFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
                 conBottomEditor.constant = keyboardFrame.size.height
                 view.layoutIfNeeded()
             }
@@ -149,7 +150,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     func scrollToBottom() {
         let delay = 0.1 * Double(NSEC_PER_SEC)
         
-        dispatch_after(dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), Int64(delay)), dispatch_get_main_queue()) { () -> Void in
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay)), dispatch_get_main_queue()) { () -> Void in
             if self.chatMessages.count > 0 {
                 let lastRowIndexPath = NSIndexPath(forRow: self.chatMessages.count - 1, inSection: 0)
                 self.tblChat.scrollToRowAtIndexPath(lastRowIndexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
