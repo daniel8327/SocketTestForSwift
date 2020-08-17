@@ -76,8 +76,6 @@ class ViewController: UIViewController {
                 completion(false)
             }
             else {
-                
-                
                 self.nickname = textfield.text
                 
                 completion(true)
